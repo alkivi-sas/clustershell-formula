@@ -1,0 +1,5 @@
+{% for group, data in salt['pillar.get']('clustershell:groups', {}).items() -%}
+{{ group }}: {%- for hosts in data -%}{%- for server, data in salt['publish.publish'](hosts, 'test.ping').items() %}{%- if server != salt['grains.get']('id') %} {{ server }}{% endif %}{%- endfor %}{% endfor %}
+{{ group }}-all: {%- for hosts in data -%}{%- for server, data in salt['publish.publish'](hosts, 'test.ping').items() %} {{ server }}{%- endfor %}{% endfor -%}
+{% endfor -%}
+

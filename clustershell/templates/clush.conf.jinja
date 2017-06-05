@@ -1,0 +1,18 @@
+###
+### File managed by SaltStack
+###
+{% from "clustershell/default_config.yaml" import default_config with context -%}
+{%- set config = salt['grains.filter_by'](default_config, grain='os', merge=salt['pillar.get']('clustershell')) -%}
+
+[Main]
+fanout: {{ config.fanout }}
+connect_timeout: {{ config.connect_timeout }}
+command_timeout: {{ config.command_timeout }}
+color: {{ config.color }}
+fd_max: {{ config.fd_max }}
+history_size: {{ config.history_size }}
+node_count: {{ config.node_count }}
+verbosity: {{ config.verbosity }}
+{% if config.get('ssh_user') %}ssh_user: {{ config.ssh_user }}{% endif -%}
+{% if config.get('ssh_path') %}ssh_path: {{ config.ssh_path }}{% endif -%}
+{% if config.get('ssh_options') %}ssh_options: {{ config.ssh_options }}{% endif -%}

@@ -1,0 +1,8 @@
+{% set clustershell = salt['grains.filter_by']({
+    'Debian': {
+        'pkg': 'clustershell',
+        'config': '/etc/clustershell/clush.conf',
+        'groups': '/etc/clustershell/groups',
+        'groups_config': '/etc/clustershell/groups.conf',
+    },
+}, merge=salt['pillar.get']('clustershell:lookup')) %}
